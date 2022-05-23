@@ -5,6 +5,7 @@
 ### May
 
 * May 23 - Send notifications about stale profiles to developers - #420 @mrtnin
+* May 21 - Accessibility updates - #436 and #440 @metamoni
 * May 9 - Send daily/weekly emails via broadcast stream - #421
 * May 8 - Send automated emails from `@railsdevs.com` -#414
 * May 8 - Stop business welcome email and clean up developer welcome email -#413
