@@ -8,7 +8,7 @@ class StaleDevelopersQuery
   def self.recently_notified
     developer_global_ids = Notification
       .select("params -> 'developer' -> '_aj_globalid' as developer_gid")
-      .where(created_at: EARLIEST_TIME..)
+      .where(type: "StaleDeveloperNotification", created_at: EARLIEST_TIME..)
       .map(&:developer_gid)
       .compact
       .uniq
