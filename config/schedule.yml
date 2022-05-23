@@ -1,0 +1,5 @@
+# Run Developers::FindStaleDevelopersJob every day at 8am
+find_stale_developers_job:
+  cron: "0 8 * * *"
+  class: "Developers::FindStaleDevelopersJob"
+  queue: default
