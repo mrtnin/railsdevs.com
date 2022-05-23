@@ -345,6 +345,7 @@ en:
     potential_hire: "%{developer} may have been hired."
     show:
       notice: Notification marked as read.
+    stale_developer_profile: Is your developer profile up to date?
   open_startup:
     contributions:
       index:

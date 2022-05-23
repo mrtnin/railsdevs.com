@@ -7,4 +7,12 @@ class StaleDeveloperNotification < ApplicationNotification
   def developer
     params[:developer]
   end
+
+  def title
+    t("notifications.stale_developer_profile")
+  end
+
+  def url
+    edit_developer_path(developer)
+  end
 end
