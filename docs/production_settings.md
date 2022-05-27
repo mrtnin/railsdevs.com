@@ -110,7 +110,7 @@ It also requires some CORS configuration for direct uploads, copied from the [Ac
 3. `bundle exec rake developers:utc_offset` - daily at 5:00 AM UTC
 4. `bundle exec rake developer_digest:daily` - daily at 2:00 PM UTC
 5. `bundle exec rake developer_digest:weekly` - daily at 2:00 PM UTC
-6. `bundle exec rake developers:notify_stale_profiles` - daily at 1:00 PM UTC
+6. `bundle exec rake developers:notify_stale_profiles` - daily at 8:00 AM UTC
 
 [//]: # (TODO: Document the background jobs)
 
