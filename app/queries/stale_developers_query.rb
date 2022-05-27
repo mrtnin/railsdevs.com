@@ -1,23 +1,41 @@
 class StaleDevelopersQuery
   EARLIEST_TIME = 30.days.ago.beginning_of_day
 
-  def self.stale
-    Developer.where(updated_at: ..EARLIEST_TIME)
+  def stale_and_not_recently_notified
+    Developer.where(updated_at: ..EARLIEST_TIME).where(no_recent_notifications)
   end
 
-  def self.recently_notified
-    developer_global_ids = Notification
-      .select("params -> 'developer' -> '_aj_globalid' as developer_gid")
-      .where(type: "StaleDeveloperNotification", created_at: EARLIEST_TIME..)
-      .map(&:developer_gid)
-      .compact
-      .uniq
+  private
 
-    GlobalID::Locator.locate_many(developer_global_ids)
+  def no_recent_notifications
+    developers_table[:user_id].not_in(recently_notified_users_ids)
   end
 
-  def self.stale_and_not_notified
-    recently_notified_ids = recently_notified.map(&:id)
-    stale.where.not(id: recently_notified_ids)
+  def recently_notified_users_ids
+    Notification.where(notification_query).distinct.pluck(:recipient_id)
+  end
+
+  def notification_query
+    user_recipient.and(notification_type).and(recently_created)
+  end
+
+  def user_recipient
+    notifications_table[:recipient_type].eq("User")
+  end
+
+  def notification_type
+    notifications_table[:type].eq("StaleDeveloperNotification")
+  end
+
+  def recently_created
+    notifications_table[:created_at].gteq(EARLIEST_TIME)
+  end
+
+  def developers_table
+    Developer.arel_table
+  end
+
+  def notifications_table
+    Notification.arel_table
   end
 end

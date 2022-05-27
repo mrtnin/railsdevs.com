@@ -1,6 +1,6 @@
 class StaleDeveloperNotification < ApplicationNotification
-  deliver_by :database
-  deliver_by :email, mailer: "DeveloperMailer", method: :stale
+  deliver_by :database, if: :deliver_notification?
+  deliver_by :email, mailer: "DeveloperMailer", method: :stale, if: :deliver_notification?
 
   param :developer
 
@@ -14,5 +14,9 @@ class StaleDeveloperNotification < ApplicationNotification
 
   def url
     edit_developer_path(developer)
+  end
+
+  def deliver_notification?
+    developer.send_stale_notification?
   end
 end

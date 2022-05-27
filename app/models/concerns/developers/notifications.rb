@@ -21,7 +21,7 @@ module Developers
     end
 
     def notify_as_stale
-      send_stale_profile_notification if send_stale_notification?
+      send_stale_profile_notification
     end
 
     private
