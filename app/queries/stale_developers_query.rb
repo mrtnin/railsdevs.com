@@ -16,14 +16,14 @@ class StaleDevelopersQuery
   end
 
   def notification_query
-    user_recipient.and(notification_type).and(recently_created)
+    user_recipient.and(stale_notification_type).and(recently_created)
   end
 
   def user_recipient
     notifications_table[:recipient_type].eq("User")
   end
 
-  def notification_type
+  def stale_notification_type
     notifications_table[:type].eq("StaleDeveloperNotification")
   end
 
